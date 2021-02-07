@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 //Написать программу, в которой создаются динамические массивы и  
 //выполнить их обработку всоответствии со своим вариантом. 
@@ -82,7 +82,10 @@ int main()
         cout << mass[i] << " ";
     }
     cout << "\n";
-    delete mass;//удаляем mass из памяти
-    delete temp;//удаляем temp из памяти
+    free( mass);//удаляем mass и temp из памяти
+
+    system("pause");
+
+    return 0;
 
 }
