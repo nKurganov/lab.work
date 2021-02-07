@@ -1,225 +1,228 @@
-﻿#include <stdio.h>
-#include <stdlib.h>
-#include <fstream>
-#include <iostream>
+# включить  < stdio.h >
+# включить  < stdlib.h >
+# включить  < fstream >
+# включить  < iostream >
+# include  < Windows.h >
 
-using namespace std;
-//Сформировать двоичный файл из элементов, заданной в варианте структуры, распечатать
-//его содержимое, выполнить удаление и добавление элементов в соответствии со своим вариантом,
-//используя для поиска удаляемых или добавляемых элементов функцию.Формирование, печать,
-//добавление и удаление элементов оформить в виде функций. Предусмотреть сообщения об ошибках 
-//при открытии файла и выполнении операций ввода / вывода.
-//10. Вывести измененный файл на экран.
-//Вариант 1
-//Структура "Абитуриент":
-//-фамилия, имя, отчество;
-//-год рождения;
-//-оценки вступительных экзаменов(3);
-//-средний балл аттестата.
-//Удалить элемент с указанным номером, добавить элемент после элемента с указанной фамилией.
+используя  пространство имен  std ;
+// Сформировать двоичный файл из элементов, заданной в варианте структуры, распечатать
+// его выполнение, выполнить удаление и добавление элементов в соответствии со своим,
+// используя для поиска удаляемых или добавляемых элементов функции.
+// добавление и удаление элементов оформить в виде функций. Предусмотреть сообщения об ошибках
+// при открытии файла и операций ввода / вывода.
+// 10. Вывести измененный файл на экран.
+// Вариант 1
+// Структура «Абитуриент»:
+// -фамилия, имя, отчество;
+// -год рождения;
+// -оценки вступительных экзаменов (3);
+// -средний балл аттестата.
+// Удалить элемент с указанным номером, добавить элемент после элемента с указанным номером.
 
 
-struct Enrollee //структура учиника
+struct  Enrollee  // структура учиника
 {
-    string Famil;//Фамилия
-    string Imya;//Имя
-    string Otch;//Отчество
-    string birfDay;//дата рождения
-    int marks[3];//оценки
-    double avg;//средняя оценку
+    строка Famil; // Фамилия
+    строка Имя; // Имя
+    струна Отч; // Отчество
+    строка birfDay; // дата рождения
+    int mark [ 3 ]; // оценки
+    двойное средн .; // средняя оценка
 };
-//удалить k-ый элемет из файла
-void del_num(const char* filename, int k)
+// удалить k-ый элементет из файла
+void  del_num ( const  char * имя файла, int k)
 {
-    fstream temp("temp", ios::out, ios::binary);//исходный файл
-    fstream f(filename, ios::in, ios::binary);//вспомогательный файл
-    Enrollee a;//буфер для чтения данных из файла
-        //считываем данные из исходного файла в буфер
-    int id = 1;
+    fstream temp ( " темп " , ios :: out, ios :: binary); // исходный файл
+    fstream f (имя файла, ios :: in, ios :: binary); // вспомогательный файл
+    Абитуриент a; // буфер для чтения данных из файла
+        // считываем данные из исходного файла в буфер
+    int id = 1 ;
     do {
-        f >> a.Famil;
-        f >> a.Imya;
-        f >> a.Otch;
-        f >> a.birfDay;
-        f >> a.marks[0];
-        f >> a.marks[1];
-        f >> a.marks[2];
-        f >> a.avg;
-        if (f.eof())break;
-        if (id != k)//если номер записи не равен х
+        f >> а. Famil ;
+        f >> а. Имя ;
+        f >> а. Отч ;
+        f >> а. birfDay ;
+        f >> а. знаки [ 0 ];
+        f >> а. отметки [ 1 ];
+        f >> а. марки [ 2 ];
+        f >> а. средн . ;
+        если (f. eof ()) перерыв ;
+        if (id! = k) // если номер записи не равен х
         {
-            temp << a.Famil; temp << "\n";
-            temp << a.Imya; temp << "\n";
-            temp << a.Otch; temp << "\n";
-            temp << a.birfDay; temp << "\n";
-            temp << a.marks[0]; temp << "\n";
-            temp << a.marks[1]; temp << "\n";
-            temp << a.marks[2]; temp << "\n";
-            temp << a.avg; temp << "\n";
+            temp << a. Famil ; temp << " \ n " ;
+            temp << a. Имя ; temp << " \ n " ;
+            temp << a. Отч ; temp << " \ n " ;
+            temp << a. birfDay ; temp << " \ n " ;
+            temp << a. знаки [ 0 ]; temp << " \ n " ;
+            temp << a. отметки [ 1 ]; temp << " \ n " ;
+            temp << a. марки [ 2 ]; temp << " \ n " ;
+            temp << a. средн . ; temp << " \ n " ;
         }
-        id++;
-    } while (!f.eof());
-    f.close();//закрываем исходный файл
-    temp.close(); //закрываем временный файл
-    remove(filename);//удаляем исходный файл
-    rename("temp", filename);//переименовываем временный файл
+        id ++;
+    } while (! f. eof ());
+    f. закрыть (); // закрываем исходный файл
+    темп. закрыть (); // закрываем временный файл
+    удалить (имя файла); // удаляем исходный файл
+    переименовать ( " темп " , имя файла); // переименовываем временный файл
 }
-//добавить данные в файл перед структурой с индексом index
-void add_in_num(const char* filename, struct Enrollee data,  string famil)
+// добавить данные в файл перед структурой индексом индекса
+void  add_in_num ( const  char * filename, struct  Enrollee data, string famil)
 {
-    fstream temp("temp", ios::out, ios::binary);//исходный файл
-    fstream f(filename, ios::in, ios::binary);//вспомогательный файл
-    Enrollee a;//буфер для чтения данных из файла
-        //считываем данные из исходного файла в буфер
-    int k = 0;
+    fstream temp ( " темп " , ios :: out, ios :: binary); // исходный файл
+    fstream f (имя файла, ios :: in, ios :: binary); // вспомогательный файл
+    Абитуриент a; // буфер для чтения данных из файла
+        // считываем данные из исходного файла в буфер
+    int k = 0 ;
     do {
-        //читанем данные из файла
-        f >> a.Famil;
-        f >> a.Imya;
-        f >> a.Otch;
-        f >> a.birfDay;
-        f >> a.marks[0];
-        f >> a.marks[1];
-        f >> a.marks[2];
-        f >> a.avg;
-        if (f.eof())break;
+        // читанем данные из файла
+        f >> а. Famil ;
+        f >> а. Имя ;
+        f >> а. Отч ;
+        f >> а. birfDay ;
+        f >> а. знаки [ 0 ];
+        f >> а. отметки [ 1 ];
+        f >> а. марки [ 2 ];
+        f >> а. средн . ;
+        если (f. eof ()) перерыв ;
         
-        if (a.Famil == famil)//если нашли индекс вставляем данные
+        if (a. Famil == famil) // если нашли индекс вставляем данные
         {
-            temp << data.Famil; temp << "\n";
-            temp << data.Imya; temp << "\n";
-            temp << data.Otch; temp << "\n";
-            temp << data.birfDay; temp << "\n";
-            temp << data.marks[0]; temp << "\n";
-            temp << data.marks[1]; temp << "\n";
-            temp << data.marks[2]; temp << "\n";
-            temp << data.avg; temp << "\n";
+            temp << data. Famil ; temp << " \ n " ;
+            temp << data. Имя ; temp << " \ n " ;
+            temp << data. Отч ; temp << " \ n " ;
+            temp << data. birfDay ; temp << " \ n " ;
+            temp << data. знаки [ 0 ]; temp << " \ n " ;
+            temp << data. отметки [ 1 ]; temp << " \ n " ;
+            temp << data. марки [ 2 ]; temp << " \ n " ;
+            temp << data. средн . ; temp << " \ n " ;
         }
-        temp << a.Famil; temp << "\n";
-        temp << a.Imya; temp << "\n";
-        temp << a.Otch; temp << "\n";
-        temp << a.birfDay; temp << "\n";
-        temp << a.marks[0]; temp << "\n";
-        temp << a.marks[1]; temp << "\n";
-        temp << a.marks[2]; temp << "\n";
-        temp << a.avg; temp << "\n";
-        k++;
-    } while (!f.eof());
-    f.close();//закрываем исходный файл
-    temp.close(); //закрываем временный файл
-    remove(filename);//удаляем исходный файл
-    rename("temp", filename);//переименовываем временный файл
+        temp << a. Famil ; temp << " \ n " ;
+        temp << a. Имя ; temp << " \ n " ;
+        temp << a. Отч ; temp << " \ n " ;
+        temp << a. birfDay ; temp << " \ n " ;
+        temp << a. знаки [ 0 ]; temp << " \ n " ;
+        temp << a. отметки [ 1 ]; temp << " \ n " ;
+        temp << a. марки [ 2 ]; temp << " \ n " ;
+        temp << a. средн . ; temp << " \ n " ;
+        k ++;
+    } while (! f. eof ());
+    f. закрыть (); // закрываем исходный файл
+    темп. закрыть (); // закрываем временный файл
+    удалить (имя файла); // удаляем исходный файл
+    переименовать ( " темп " , имя файла); // переименовываем временный файл
 }
 // запись в файл массива структур
-void save(const char* filename, struct Enrollee* mas, int n)
+void  save ( const  char * filename, struct  Enrollee * mas, int n)
 {
-    fstream f(filename, ios::out);//двунаправленный файловый поток
-    for (int i = 0; i < n; i++)
+    fstream f (имя файла, ios :: out); // двунаправленный файловый поток
+    для ( int i = 0 ; i <n; i ++)
     {
-        //добавляем данные в файл
-        f << mas[i].Famil; f << "\n";
-        f << mas[i].Imya; f << "\n";
-        f << mas[i].Otch; f << "\n";
-        f << mas[i].birfDay; f << "\n";
-        f << mas[i].marks[0]; f << "\n";
-        f << mas[i].marks[1]; f << "\n";
-        f << mas[i].marks[2]; f << "\n";
-        f << mas[i].avg; f << "\n";
+        // добавляем данные в файл
+        f << mas [i]. Famil ; f << " \ n " ;
+        f << mas [i]. Имя ; f << " \ n " ;
+        f << mas [i]. Отч ; f << " \ n " ;
+        f << mas [i]. birfDay ; f << " \ n " ;
+        f << mas [i]. знаки [ 0 ]; f << " \ n " ;
+        f << mas [i]. отметки [ 1 ]; f << " \ n " ;
+        f << mas [i]. марки [ 2 ]; f << " \ n " ;
+        f << mas [i]. средн . ; f << " \ n " ;
     }
 
-    f.close();//закрытие потока
+    f. закрыть (); // закрытие потока
 }
 
 // загрузка из файла массива структур
-void load(const char* filename)
+пустая  загрузка ( const  char * filename)
 {
     fstream f;
-    Enrollee p;
-    f.open(filename, ios::in);//открываем поток для чтения
-    int id = 1;//id для вывода номера
-    cout << "id" << "\t" << "Ф." << "\t" << "И." << "\t" << "О." << "\t" << "Д.Р." << "\t" << "О.1" << "\t" << "О.2" << "\t" << "О.3" << "\t" << "Ср.Оц." << "\n";
-    do
+    Абитуриент p;
+    f. open (имя файла, ios :: in); // открываем поток для чтения
+    int id = 1 ; // id для вывода номера
+    cout << " id " << " \ t " << " Ф. " << " \ t " << " И. " << " \ t " << " О. " << " \ t " << " Д.Р. " << " \ t " << " О.1 " << "\ t " << " О.2 " << " \ t "<< " О.3 " << " \ t " << " Ср.Оц. " << " \ n " ;
+    делать
     {
-        //достаём данные
-        f >> p.Famil;
-        f >> p.Imya;
-        f >> p.Otch;
-        f >> p.birfDay;
-        f >> p.marks[0];
-        f >> p.marks[1];
-        f >> p.marks[2];
-        f >> p.avg;
-        if (f.eof())break;
+        // достаём данные
+        f >> p. Famil ;
+        f >> p. Имя ;
+        f >> p. Отч ;
+        f >> p. birfDay ;
+        f >> p. знаки [ 0 ];
+        f >> p. отметки [ 1 ];
+        f >> p. марки [ 2 ];
+        f >> p. средн . ;
+        если (f. eof ()) перерыв ;
         
-        //выводим их
-        cout << id << "\t" << p.Famil<< "\t" <<p.Imya<< "\t" << p.Otch << "\t" << p.birfDay << "\t" << p.marks[0] << "\t" << p.marks[1] << "\t" << p.marks[2] << "\t" << p.avg << "\n";
-        id++;
-    } while (!f.eof());
+        // выводим их
+        cout << id << " \ t " << p. Famil << " \ t " << стр. Имя << " \ t " << p. Отч << " \ t " << п. birfDay << " \ t " << p. знаки [ 0 ] << " \ t " << p. знаки [ 1 ] << " \ t " << p.avg << " \ n " ;
+        id ++;
+    } while (! f. eof ());
 
-    f.close();//закрытие потока
+    f. закрыть (); // закрытие потока
 }
 
 
-int main(void)
+int  main ( пусто )
 {
-    setlocale(LC_ALL, "Ru");//меняем язык консоли на русский
-    const char* filename = "studens.stud";
-    Enrollee* mas;//динамический массив
+    SetConsoleCP ( 1251 );
+    SetConsoleOutputCP ( 1251 );
+    // меняем язык консоли на русский
+    const  char * filename = " Студенс.студ " ;
+    Абитуриент * mas; // динамический массив
     int n;
-    while (true) {
-        cout << "Введите кол-во данных:";
+    while ( true ) {
+        cout << " Введите кол-во данных: " ;
         cin >> n;
-        mas = new Enrollee[n];//создаем динамический массив
-        for (int i = 0; i < n; i++)
+        mas = новый участник [n]; // создаем динамический массив
+        для ( int i = 0 ; i <n; i ++)
         {
-            //ввод одного элемента типа person из стандартного потока cin
-            cout << "Фамилию: ";
+            // ввод одного элемента типа человек из стандартного потока cin
+            cout << " Фамилию: " ;
 
-            cin >> mas[i].Famil;
-            cout << "Имя: ";
-            cin >> mas[i].Imya;
-            cout << "Отчество: ";
-            cin >> mas[i].Otch;
-            cout << "Дата рождения: ";
-            cin >> mas[i].birfDay;
-            cout << "Оценка по предмету 1: ";
-            cin >> mas[i].marks[0];
-            cout << "Оценка по предмету 2: ";
-            cin >> mas[i].marks[1];
-            cout << "Оценка по предмету 3: ";
-            cin >> mas[i].marks[2];
-            mas[i].avg = (mas[i].marks[0] + mas[i].marks[1] + mas[i].marks[2]) / 3;
+            cin >> mas [я]. Famil ;
+            cout << " Имя: " ;
+            cin >> mas [я]. Имя ;
+            cout << " Отчество: " ;
+            cin >> mas [я]. Отч ;
+            cout << " Дата рождения: " ;
+            cin >> mas [я]. birfDay ;
+            cout << " Оценка по предмету 1: " ;
+            cin >> mas [я]. знаки [ 0 ];
+            cout << " Оценка по предмету 2: " ;
+            cin >> mas [я]. отметки [ 1 ];
+            cout << " Оценка по предмету 3: " ;
+            cin >> mas [я]. марки [ 2 ];
+            mas [i]. avg = (mas [i]. mark [ 0 ] + mas [i]. mark [ 1 ] + mas [i]. mark [ 2 ]) / 3 ;
         }
-        save(filename, mas, n);
-        load(filename);
+        сохранить (имя файла, mas, n);
+        загрузка (имя файла);
 
-        cout << "Удалить из файла студента под номером k = ";
+        cout << " Удалить из файла студента под номером k = " ;
         cin >> n;
-        del_num(filename, n);
-        cout << "Введите фамилию студента перед которым нужно вставить нового студента: ";
-        string fam = "";
+        del_num (имя_файла; n);
+        cout << " Введите фамилию студента перед которым нужно вставить нового студента: " ;
+        строка fam = " " ;
         cin >> fam;
-        Enrollee persone;//создаем динамический массив
-        cout << "ФИО: ";
-        //ввод одного элемента типа person из стандартного потока cin
-        cout << "Фамилию: ";
+        Абитуриент; // создаем динамический массив
+        cout << " ФИО: " ;
+        // ввод одного элемента типа человек из стандартного потока cin
+        cout << " Фамилию: " ;
 
-        cin >> persone.Famil;
-        cout << "Имя: ";
-        cin >> persone.Imya;
-        cout << "Отчество: ";
-        cin >> persone.Otch;
-        cout << "Дата рождения: ";
-        cin >> persone.birfDay;
-        cout << "Оценка по предмету 1: ";
-        cin >> persone.marks[0];
-        cout << "Оценка по предмету 2: ";
-        cin >> persone.marks[1];
-        cout << "Оценка по предмету 3: ";
-        cin >> persone.marks[2];
-        persone.avg = (persone.marks[0] + persone.marks[1] + persone.marks[2]) / 3;
-        add_in_num(filename, persone, fam);
-        load(filename);
+        cin >> человек. Famil ;
+        cout << " Имя: " ;
+        cin >> человек. Имя ;
+        cout << " Отчество: " ;
+        cin >> человек. Отч ;
+        cout << " Дата рождения: " ;
+        cin >> человек. birfDay ;
+        cout << " Оценка по предмету 1: " ;
+        cin >> человек. знаки [ 0 ];
+        cout << " Оценка по предмету 2: " ;
+        cin >> человек. отметки [ 1 ];
+        cout << " Оценка по предмету 3: " ;
+        cin >> человек. марки [ 2 ];
+        человек. avg = (персон. отметки [ 0 ] + персон. отметки [ 1 ] + персон. отметки [ 2 ]) / 3 ;
+        // add_in_num (имя_файла, человек, фамилия);
+        загрузка (имя файла);
     }
-    return 0;
+    возврат  0 ;
 }
